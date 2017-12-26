@@ -67,16 +67,16 @@ def test_code(test_case):
     a0, a1, a2, a3, a4, a5, a6 = symbols('a0:7')  # link length
     alpha0, alpha1, alpha2, alpha3, alpha4, alpha5, alpha6 = symbols('alpha0:7') # twist angle
 
-    q1, q2, q3, q4, q5, q6, q7 = symbols('q0:7')   # joint angle symbols
+    q1, q2, q3, q4, q5, q6, q7 = symbols('q1:8')   # joint angle symbols
 
     # Create Modified DH parameters
     DH_Table = {
-        alpha0:      0,  a0:       9,   d1:   0.75,  q1:          q1,
+        alpha0:      0,  a0:       0,   d1:   0.75,  q1:          q1,
         alpha1: -pi/2.,  a1:   0.350,   d2:      0,  q2: -pi/2. + q2,
         alpha2:      0,  a2:   1.250,   d3:      0,  q3:          q3,
-        alpha3: -pi/2.,  a3:  -0.054,   d4:   1.50,  q4: -pi/2. + q4,
-        alpha4:  pi/2.,  a4:       0,   d5:      0,  q5: -pi/2. + q5,
-        alpha5: -pi/2.,  a5:       0,   d6:      0,  q6: -pi/2. + q6,
+        alpha3: -pi/2.,  a3:  -0.054,   d4:   1.50,  q4:          q4,
+        alpha4:  pi/2.,  a4:       0,   d5:      0,  q5:          q5,
+        alpha5: -pi/2.,  a5:       0,   d6:      0,  q6:          q6,
         alpha6:      0,  a6:       0,   d7:  0.303,  q7:           0,
 
     }
@@ -99,7 +99,7 @@ def test_code(test_case):
     T5_6 = TF_Matrix(alpha5, a5, d6, q6).subs(DH_Table)
     T6_EE = TF_Matrix(alpha6, a6, d7, q7).subs(DH_Table)
 
-    TO_EE = T0_1 * T1_2 * T2_3 * T3_4, * T4_5 * T5_6 * T6_EE
+    TO_EE = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_EE
 
     # Extract end-effector position and orientation from request
     # px,py,pz = end-effector position
@@ -116,15 +116,15 @@ def test_code(test_case):
     # Extract rotation matrices from the transformation matrices
     r, p, y = symbols('r p y')
     R_x = Matrix([[1, 0, 0],
-                  [0, cos(q1), -sin(q1)],
-                  [0, sin(q1), cos(q1)]])
+                  [0, cos(r), -sin(r)],
+                  [0, sin(r), cos(r)]])
 
-    R_y = Matrix([[cos(q2), 0, sin(q2)],
+    R_y = Matrix([[cos(p), 0, sin(p)],
                   [0, 1, 0],
-                  [-sin(q2), 0, cos(q2)]])
+                  [-sin(p), 0, cos(p)]])
 
-    R_z = Matrix([[cos(q3), -sin(q3), 0],
-                  [sin(q3), cos(q3), 0],
+    R_z = Matrix([[cos(y), -sin(y), 0],
+                  [sin(y), cos(y), 0],
                   [0, 0, 1]])
     Rot_EE = R_z * R_y * R_x
 
@@ -139,8 +139,8 @@ def test_code(test_case):
     theta1 = atan2(WC[1], WC[0])
 
     side_a = 1.501
-    side_b = sqrt((WC[0] * WC[0] + WC[1] * WC[1] - 0.35) ** 2 + (WC[2] - 0.75) ** 2)
-    side_c = 1.23
+    side_b = sqrt(pow((sqrt(WC[0] * WC[0] + WC[1] * WC[1]) - 0.35), 2) + pow(WC[2] - 0.75, 2))
+    side_c = 1.25
 
     angle_a = acos((side_b * side_b + side_c * side_c - side_a * side_a) / (2 * side_b * side_c))
     angle_b = acos((side_a * side_a + side_c * side_c - side_b * side_b) / (2 * side_a * side_c))
