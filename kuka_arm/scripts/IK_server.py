@@ -27,19 +27,14 @@ def handle_calculate_IK(req):
     else:
 
         ### Your FK code here
-        # Create symbols
 	#
 	#
-	# Create Modified DH parameters
 	#
 	#
-	# Define Modified DH Transformation matrix
 	#
 	#
-	# Create individual transformation matrices
 	#
 	#
-	# Extract rotation matrices from the transformation matrices
 	#
 	#
         ###
