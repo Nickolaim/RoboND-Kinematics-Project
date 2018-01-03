@@ -99,7 +99,7 @@ def test_code(test_case):
     T5_6 = TF_Matrix(alpha5, a5, d6, q6).subs(DH_Table)
     T6_EE = TF_Matrix(alpha6, a6, d7, q7).subs(DH_Table)
 
-    TO_EE = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_EE
+    T0_EE = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_EE
 
     # Extract end-effector position and orientation from request
     # px,py,pz = end-effector position
@@ -166,13 +166,14 @@ def test_code(test_case):
     ## as the input and output the position of your end effector as your_ee = [x,y,z]
 
     ## (OPTIONAL) YOUR CODE HERE!
+    FK = T0_EE.evalf(subs={q1: theta1, q2: theta2, q3:theta3, q4: theta4, q5: theta5, q6: theta6})
 
     ## End your code input for forward kinematics here!
     ########################################################################################
 
     ## For error analysis please set the following variables of your WC location and EE location in the format of [x,y,z]
-    your_wc = [1,1,1] # <--- Load your calculated WC values in this array
-    your_ee = [1,1,1] # <--- Load your calculated end effector value from your forward kinematics
+    your_wc = [WC[0], WC[1], WC[2]]
+    your_ee = [FK[0, 3], FK[1, 3], FK[2, 3]]
     ########################################################################################
 
     ## Error analysis
