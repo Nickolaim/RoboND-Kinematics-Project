@@ -99,7 +99,7 @@ def test_code(test_case):
     T5_6 = TF_Matrix(alpha5, a5, d6, q6).subs(DH_Table)
     T6_EE = TF_Matrix(alpha6, a6, d7, q7).subs(DH_Table)
 
-    T0_EE = T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_EE
+    T0_EE = simplify(T0_1 * T1_2 * T2_3 * T3_4 * T4_5 * T5_6 * T6_EE)
 
     # Extract end-effector position and orientation from request
     # px,py,pz = end-effector position
